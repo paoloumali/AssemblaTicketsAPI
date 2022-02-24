@@ -1,0 +1,12 @@
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="MyProject">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="ASSEMBLA_API_KEY" value="fakeKey" />
+        <env name="ASSEMBLA_API_SECRET" value="fakeSecret" />
+        <env name="ASSEMBLA_SPACE" value="PO-Migrations" />
+    </php>
+</phpunit>
