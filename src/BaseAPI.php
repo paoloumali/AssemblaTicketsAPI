@@ -5,7 +5,7 @@ namespace Paolo\AssemblaAPI;
 use Pimple\Container;
 use GuzzleHttp\Client as HttpClient;
 
-class API extends Container
+class BaseAPI extends Container
 {
     private $c;
 

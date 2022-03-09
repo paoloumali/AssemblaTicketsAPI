@@ -3,9 +3,9 @@
 
 use PHPUnit\Framework\TestCase;
 use Pimple\Container;
-use Paolo\AssemblaAPI\API;
+use Paolo\AssemblaAPI\BaseAPI as API;
 
-final class APITest extends TestCase
+final class BaseAPITest extends TestCase
 {
     /**
      * @group unit

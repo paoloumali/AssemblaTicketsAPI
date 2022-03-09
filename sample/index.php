@@ -11,9 +11,9 @@ $whoops = new \Whoops\Run;
 $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 $whoops->register();
 
-use Paolo\AssemblaAPI\API as AssemblaAPI;
+use Paolo\AssemblaAPI\BaseAPI as AssemblaAPI;
 
-$api = new AssemblaAPI([
+$api = AssemblaAPI::init([
     'X-Api-Key' => $_ENV['ASSEMBLA_API_KEY'],
     'X-Api-Secret' => $_ENV['ASSEMBLA_API_SECRET'],
     'space' =>  $_ENV['ASSEMBLA_SPACE']

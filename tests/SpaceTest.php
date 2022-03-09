@@ -4,6 +4,7 @@
 use PHPUnit\Framework\TestCase;
 use Pimple\Container;
 use Paolo\AssemblaAPI\Space as API;
+use Paolo\AssemblaAPI\BaseAPI;
 
 final class SpaceTest extends TestCase
 {
@@ -13,7 +14,7 @@ final class SpaceTest extends TestCase
      */
     public function testApiInstanceIsAPimpleContainer(): void
     {
-        $this->assertInstanceOf( Container::class, API::init() );
+        $this->assertInstanceOf( BaseAPI::class, API::init() );
     }
 
     /**
