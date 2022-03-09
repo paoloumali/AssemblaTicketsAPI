@@ -5,36 +5,31 @@ namespace Paolo\AssemblaAPI;
 use Pimple\Container;
 use GuzzleHttp\Client as HttpClient;
 
-class API
+class API extends Container
 {
+    private $c;
 
-    private $container;
-
-    public function __construct($options = [
-        'X-Api-Key' => null,
-        'X-Api-Secret' => null,
-        'space' => 'PO-Migrations'
-    ]){
-
-        $this->container = new Container();
-        $this->c = &$this->container;
-
-        $this->updateOptions($options);
-
-        $this->_setupHeaders();
-
-        $this->setupApiUrl();
-
-        $this->_setupGuzzleGet();
+    private function __construct()
+    {
+        parent::__construct();
+        $this->c = $this;
     }
 
+    public static function init(
+        $options = [
+        'X-Api-Key' => null, 'X-Api-Secret' => null, 'space' => 'PO-Migrations'
+        ])
+    {
+        $x = new static();
+        $x->updateOptions($options);
+        $x->updateOptions($options);
+        $x->_setupHeaders();
+        $x->setupApiUrl();
+        $x->_setupGuzzleGet();
+        return $x;
+    }
 
     public function c()
-    {
-        return $this->c;
-    }
-
-    public function getContainer()
     {
         return $this->c;
     }
