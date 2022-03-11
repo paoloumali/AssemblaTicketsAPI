@@ -13,6 +13,7 @@ class BaseAPI extends Container
     {
         parent::__construct();
         $this->c = $this;
+        $this->c['http_client'] = $this->c->factory(fn($c) => new HttpClient());
     }
 
     public static function init(
@@ -25,7 +26,7 @@ class BaseAPI extends Container
         $x->updateOptions($options);
         $x->_setupHeaders();
         $x->setupApiUrl();
-        $x->_setupGuzzleGet();
+        $x->_setupGuzzleCalls();
         return $x;
     }
 
@@ -34,7 +35,7 @@ class BaseAPI extends Container
         return $this->c;
     }
 
-    public function updateOptions($options = [])
+    protected function updateOptions($options = [])
     {
         $default_options = [
             'X-Api-Key' => null,
@@ -68,7 +69,7 @@ class BaseAPI extends Container
         });
     }
 
-    private function _setupHeaders()
+    protected function _setupHeaders()
     {
         $this->c['context'] = [
             'headers' => [
@@ -78,11 +79,8 @@ class BaseAPI extends Container
         ];
     }
 
-    private function _setupGuzzleGet()
+    protected function _setupGuzzleCalls()
     {
-
-        $this->c['http_client'] = $this->c->factory(fn($c) => new HttpClient());
-
         $this->c['fetch'] = $this->c->factory(fn($c) => function() use($c){
             $response = $c['http_client']
                 ->request('GET', $c['getApiUrl'](), $c['context']);
