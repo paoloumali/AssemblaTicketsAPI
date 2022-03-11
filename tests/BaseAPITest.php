@@ -51,15 +51,6 @@ final class BaseAPITest extends TestCase
     /**
      * @group unit
      */
-    public function testOptionSubpath(): void
-    {
-        $api = API::init(['subpath'=> 'tickets']);
-        $this->assertEquals('https://api.assembla.com/v1/spaces/PO-Migrations/tickets', $api->c()['getApiUrl']());
-    }
-
-    /**
-     * @group unit
-     */
     public function testOptionSpace(): void
     {
         $api = API::init(['space'=> 'cloudways-systeam']);

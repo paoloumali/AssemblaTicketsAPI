@@ -2,10 +2,10 @@
 
 namespace Paolo\AssemblaAPI;
 
-class Space extends BaseAPI implements UrlBuilderIface
+class User extends BaseAPI implements UrlBuilderIface
 {
-    public function buildUrl($c) {
-        return $c['base_url'];
+    public function buildUrl($container) {
+        return $container['base_url'].'/users';
     }
 
     public static function init( $input_options = [
