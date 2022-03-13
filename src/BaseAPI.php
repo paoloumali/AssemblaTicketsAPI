@@ -12,18 +12,18 @@ class BaseAPI extends Container
     const INIT_OPTIONS = [
         'ASSEMBLA_KEY' => null,
         'ASSEMBLA_SECRET' => null,
-        'ASSEMBLA_SPACE' => 'PO-Migrations'
+        'ASSEMBLA_SPACE' => 'PO-Migrations',
+        'api_url' => null
     ];
 
     private $c;
+    private $moreOptions = [];
 
     protected function buildUrl($c) {
         return $c['base_url'];
     }
 
     public static function init( $input_options = self::INIT_OPTIONS) {
-        //foreach (self::INIT_OPTIONS as $key => $val):
-        //endforeach;
         return new static($input_options);
     }
 
@@ -33,9 +33,7 @@ class BaseAPI extends Container
 
         $this->c['options'] =
             array_merge(static::INIT_OPTIONS,
-            [
-                'api_url' => null
-            ],
+            $this->moreOptions,
             $this->c['input_options']);
     }
 
@@ -70,8 +68,8 @@ class BaseAPI extends Container
         // headers
         $this->c['context'] = [
             'headers' => [
-                'X-Api-Key' => $this->c['options']['ASSEMBLA_KEY'] ?: $_ENV['ASSEMBLA_KEY'],
-                'X-Api-Secret' => $this->c['options']['ASSEMBLA_SECRET'] ?: $_ENV['ASSEMBLA_SECRET']
+                'X-Api-Key' => $this->c['options']['ASSEMBLA_KEY'] ,
+                'X-Api-Secret' => $this->c['options']['ASSEMBLA_SECRET']
             ]
         ];
 

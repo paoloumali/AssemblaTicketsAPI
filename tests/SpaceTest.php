@@ -32,7 +32,7 @@ final class SpaceTest extends TestCase
     }
 
     /**
-     * @group unit
+     * @group extra
      */
     public function testApiAuthCredsNotDefined(): void
     {
@@ -51,7 +51,7 @@ final class SpaceTest extends TestCase
     }
 
     /**
-     * @group unit
+     * @group feature
      */
     public function testOptionSpace(): void
     {

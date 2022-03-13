@@ -30,7 +30,7 @@ final class BaseAPITest extends TestCase
     }
 
     /**
-     * @group unit
+     * @group extra
      */
     public function testApiAuthCredsNotDefined(): void
     {
