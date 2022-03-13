@@ -23,8 +23,8 @@ final class SpaceTest extends TestCase
     public function testContextHeadersAreDefined(): void
     {
         $api = API::init([
-            'X-Api-Key' => 'some-key',
-            'X-Api-Secret' => 'secret'
+            'ASSEMBLA_KEY' => 'some-key',
+            'ASSEMBLA_SECRET' => 'secret'
             ]);
 
         $this->assertEquals( 'some-key', $api->c()['context']['headers']['X-Api-Key']);
@@ -37,8 +37,8 @@ final class SpaceTest extends TestCase
     public function testApiAuthCredsNotDefined(): void
     {
         $api = API::init();
-        $this->assertEquals($_ENV['ASSEMBLA_API_KEY'], $api->c()['context']['headers']['X-Api-Key']);
-        $this->assertEquals($_ENV['ASSEMBLA_API_SECRET'], $api->c()['context']['headers']['X-Api-Secret']);
+        $this->assertEquals($_ENV['ASSEMBLA_KEY'], $api->c()['context']['headers']['X-Api-Key']);
+        $this->assertEquals($_ENV['ASSEMBLA_SECRET'], $api->c()['context']['headers']['X-Api-Secret']);
     }
 
     /**
@@ -55,7 +55,7 @@ final class SpaceTest extends TestCase
      */
     public function testOptionSpace(): void
     {
-        $api = API::init(['space'=> 'cloudways-systeam']);
+        $api = API::init(['ASSEMBLA_SPACE'=> 'cloudways-systeam']);
         $this->assertEquals('https://api.assembla.com/v1/spaces/cloudways-systeam', $api->c()['getApiUrl']());
     }
 
@@ -67,15 +67,15 @@ final class SpaceTest extends TestCase
 
         # call phpunit with env as below
         /*
-        ASSEMBLA_API_KEY=someKey \
-        ASSEMBLA_API_SECRET=someSecret \
+        ASSEMBLA_KEY=someKey \
+        ASSEMBLA_SECRET=someSecret \
         ASSEMBLA_SPACE=PO-Migrations \
         p --group feature ...
         */
         $api = API::init([
-            'X-Api-Key' => getenv('ASSEMBLA_API_KEY'),
-            'X-Api-Secret' =>  getenv('ASSEMBLA_API_SECRET'),
-            'space' =>  getenv('ASSEMBLA_SPACE')
+            'ASSEMBLA_KEY' => getenv('ASSEMBLA_KEY'),
+            'ASSEMBLA_SECRET' =>  getenv('ASSEMBLA_SECRET'),
+            'ASSEMBLA_SPACE' =>  getenv('ASSEMBLA_SPACE')
             ]);
 
         var_dump($api->fetch());

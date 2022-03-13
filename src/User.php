@@ -9,8 +9,8 @@ class User extends BaseAPI implements UrlBuilderIface
     }
 
     public static function init( $input_options = [
-        'X-Api-Key' => null,
-        'X-Api-Secret' => null,
+        'ASSEMBLA_KEY' => null,
+        'ASSEMBLA_SECRET' => null,
         'space' => 'PO-Migrations'
     ]) {
         return new static($input_options);

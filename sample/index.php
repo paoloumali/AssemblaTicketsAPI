@@ -5,8 +5,8 @@ include_once('_inc_start.php');
 use Paolo\AssemblaAPI\BaseAPI as AssemblaAPI;
 
 $api = AssemblaAPI::init([
-    'X-Api-Key' => $_ENV['ASSEMBLA_API_KEY'],
-    'X-Api-Secret' => $_ENV['ASSEMBLA_API_SECRET'],
+    'ASSEMBLA_KEY' => $_ENV['ASSEMBLA_KEY'],
+    'ASSEMBLA_SECRET' => $_ENV['ASSEMBLA_SECRET'],
     'space' =>  $_ENV['ASSEMBLA_SPACE']
 ]);
 

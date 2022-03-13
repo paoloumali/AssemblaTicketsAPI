@@ -9,9 +9,9 @@ class Space extends BaseAPI implements UrlBuilderIface
     }
 
     public static function init( $input_options = [
-        'X-Api-Key' => null,
-        'X-Api-Secret' => null,
-        'space' => 'PO-Migrations'
+        'ASSEMBLA_KEY' => null,
+        'ASSEMBLA_SECRET' => null,
+        'ASSEMBLA_SPACE' => 'PO-Migrations'
     ]) {
         return new static($input_options);
     }

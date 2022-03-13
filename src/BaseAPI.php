@@ -5,24 +5,38 @@ namespace Paolo\AssemblaAPI;
 use Pimple\Container;
 use GuzzleHttp\Client as HttpClient;
 
+
+
 class BaseAPI extends Container
 {
+    const INIT_OPTIONS = [
+        'ASSEMBLA_KEY' => null,
+        'ASSEMBLA_SECRET' => null,
+        'ASSEMBLA_SPACE' => 'PO-Migrations'
+    ];
+
     private $c;
+
+    protected function buildUrl($c) {
+        return $c['base_url'];
+    }
+
+    public static function init( $input_options = self::INIT_OPTIONS) {
+        //foreach (self::INIT_OPTIONS as $key => $val):
+        //endforeach;
+        return new static($input_options);
+    }
 
     protected function _mergeOptions($inputOptions)
     {
         $this->c['input_options'] = $inputOptions;
 
-        $this->c['default_options'] = [
-            'X-Api-Key' => null,
-            'X-Api-Secret' => null,
-            'space' => 'PO-Migrations',
-            'api_url' => null,
-            'milestone' => null,
-            'params' => null,
-        ];
-
-        $this->c['options'] = array_merge($this->c['default_options'], $this->c['input_options']);
+        $this->c['options'] =
+            array_merge(static::INIT_OPTIONS,
+            [
+                'api_url' => null
+            ],
+            $this->c['input_options']);
     }
 
     protected function __construct($inputOptions)
@@ -48,18 +62,6 @@ class BaseAPI extends Container
         });
     }
 
-    protected function buildUrl($c) {
-        return $c['base_url'];
-    }
-
-    public static function init( $input_options = [
-        'X-Api-Key' => null,
-        'X-Api-Secret' => null,
-        'space' => 'PO-Migrations'
-    ]) {
-        return new static($input_options);
-    }
-
     protected function _bootstrap()
     {
         // setup the http client
@@ -68,13 +70,13 @@ class BaseAPI extends Container
         // headers
         $this->c['context'] = [
             'headers' => [
-                'X-Api-Key' => $this->c['options']['X-Api-Key'] ?: $_ENV['ASSEMBLA_API_KEY'],
-                'X-Api-Secret' => $this->c['options']['X-Api-Secret'] ?: $_ENV['ASSEMBLA_API_SECRET']
+                'X-Api-Key' => $this->c['options']['ASSEMBLA_KEY'] ?: $_ENV['ASSEMBLA_KEY'],
+                'X-Api-Secret' => $this->c['options']['ASSEMBLA_SECRET'] ?: $_ENV['ASSEMBLA_SECRET']
             ]
         ];
 
         // setup base url
-        $this->c['base_url'] = 'https://api.assembla.com/v1/spaces/'.$this->c['options']['space'];
+        $this->c['base_url'] = 'https://api.assembla.com/v1/spaces/'.$this->c['options']['ASSEMBLA_SPACE'];
 
         // define fetch
         $this->c['fetch'] = $this->c->factory(fn($c) => function() use($c){
